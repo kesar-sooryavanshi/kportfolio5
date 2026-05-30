@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kesar | Futuristic Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#000000);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+color:white;
+overflow-x:hidden;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+position:sticky;
+top:0;
+backdrop-filter:blur(12px);
+background:rgba(255,255,255,0.08);
+}
+
+nav h2{
+color:#00f7ff;
+}
+
+/* HERO */
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:100px 60px;
+flex-wrap:wrap;
+}
+
+.hero-text h1{
+font-size:60px;
+}
+
+.hero-text span{
+color:#00f7ff;
+}
+
+.hero img{
+width:300px;
+border-radius:50%;
+animation:float 4s ease-in-out infinite;
+box-shadow:0 0 40px #00f7ff;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+/* SECTION */
+
+section{
+padding:80px 60px;
+text-align:center;
+}
+
+h2{
+font-size:40px;
+margin-bottom:40px;
+color:#00f7ff;
+}
+
+/* ABOUT */
+
+.about p{
+max-width:800px;
+margin:auto;
+opacity:0.8;
+}
+
+/* SKILLS */
+
+.box-container{
+display:flex;
+flex-wrap:wrap;
+gap:25px;
+justify-content:center;
+}
+
+.box{
+padding:20px 35px;
+border-radius:15px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+transition:0.4s;
+cursor:pointer;
+}
+
+.box:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 0 25px #00f7ff;
+}
+
+/* LINKS */
+
+.links a{
+display:block;
+width:230px;
+margin:15px auto;
+padding:15px;
+border-radius:30px;
+text-decoration:none;
+color:white;
+background:linear-gradient(45deg,#00f7ff,#8e2de2);
+transition:0.4s;
+}
+
+.links a:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px #00f7ff;
+}
+
+/* SCROLL REVEAL */
+
+.hidden{
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+.hero{
+flex-direction:column;
+text-align:center;
+gap:40px;
+}
+.hero-text h1{
+font-size:40px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<h2>KESAR</h2>
+</nav>
+
+<div class="hero">
+
+<div class="hero-text">
+<h1>Hello I'm <br><span>Kesar Sooryavanshi</span></h1>
+<p id="typing"></p>
+</div>
+
+<img src="kesar01.jpeg">
+
+</div>
+
+<section class="about hidden">
+<h2>About Me</h2>
+<p>
+BTech student passionate about technology, coding and building futuristic digital experiences.
+I love creating, learning and growing every single day 🚀
+</p>
+</section>
+
+<section class="hidden">
+<h2>My Skills</h2>
+
+<div class="box-container">
+
+<div class="box">Problem Solving</div>
+<div class="box">Leadership</div>
+<div class="box">Time Management</div>
+<div class="box">Communication</div>
+<div class="box">Teamwork</div>
+<div class="box">Analytical Thinking</div>
+
+</div>
+</section>
+
+<section class="hidden">
+<h2>Programming</h2>
+
+<div class="box-container">
+
+<div class="box">Python</div>
+<div class="box">C++</div>
+<div class="box">HTML</div>
+<div class="box">Prompt Engineering</div>
+
+</div>
+</section>
+
+<section class="links hidden">
+
+<h2>Connect With Me</h2>
+
+<a href="https://www.instagram.com/sooryavanshii_kesar" target="_blank">Instagram</a>
+<a href="https://www.linkedin.com/in/kesar-sooryavanshi-480b39362" target="_blank">LinkedIn</a>
+<a href="https://github.com/kesar-sooryavanshi" target="_blank">GitHub</a>
+<a href="https://x.com/kesar319889" target="_blank">Twitter</a>
+<a href="https://www.commudle.com/users/9915487ff989ff52d72c0128b73c5b5c" target="_blank">Commudle</a>
+
+</section>
+
+<script>
+
+/* TYPING TEXT */
+
+const text="BTech Student • Tech Enthusiast • Creator";
+let i=0;
+
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,50);
+}
+}
+
+typing();
+
+/* SCROLL ANIMATION */
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
+
+</script>
+
+</body>
+</html>
