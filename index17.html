@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kesar | Cybernetic Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Syne,sans-serif}
+body{
+background:#050510;
+color:white;
+overflow-x:hidden;
+cursor:none;
+}
+
+/* CUSTOM CURSOR */
+
+.cursor{
+width:20px;
+height:20px;
+border:2px solid cyan;
+border-radius:50%;
+position:fixed;
+pointer-events:none;
+transform:translate(-50%,-50%);
+}
+
+/* PARALLAX CANVAS */
+
+canvas{
+position:fixed;
+top:0;
+z-index:-1;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.hero img{
+width:180px;
+border-radius:50%;
+z-index:2;
+}
+
+.ring{
+position:absolute;
+width:300px;
+height:300px;
+border:2px dashed cyan;
+border-radius:50%;
+animation:rotate 20s linear infinite;
+}
+
+@keyframes rotate{
+100%{transform:rotate(360deg)}
+}
+
+h1{
+font-size:60px;
+background:linear-gradient(90deg,cyan,magenta);
+-webkit-background-clip:text;
+color:transparent;
+animation:glitch 2s infinite;
+}
+
+@keyframes glitch{
+0%{transform:translateX(0)}
+20%{transform:translateX(-2px)}
+40%{transform:translateX(2px)}
+}
+
+/* ABOUT */
+
+.about{
+padding:120px 10%;
+text-align:center;
+}
+
+.glass{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(0,255,255,0.3);
+backdrop-filter:blur(20px);
+padding:40px;
+border-radius:20px;
+}
+
+/* SKILLS BENTO */
+
+.skills{
+padding:120px 10%;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.card{
+padding:40px;
+border-radius:20px;
+background:linear-gradient(145deg,#0a0a1a,#0f0f2e);
+transition:.5s;
+}
+
+.card:hover{
+transform:translateY(-15px) rotateX(10deg);
+box-shadow:0 20px 40px rgba(0,255,255,.3);
+}
+
+/* SOCIAL */
+
+.social{
+text-align:center;
+padding:100px 0;
+}
+
+.social a{
+display:inline-block;
+margin:10px;
+padding:15px 25px;
+border:1px solid cyan;
+border-radius:30px;
+text-decoration:none;
+color:white;
+transition:.4s;
+}
+
+.social a:hover{
+background:cyan;
+color:black;
+box-shadow:0 0 30px cyan;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+<canvas id="bg"></canvas>
+
+<section class="hero">
+
+<div class="ring"></div>
+<img src="kesar01.jpeg">
+
+<h1>KESAR</h1>
+<p id="role"></p>
+
+</section>
+
+<section class="about">
+
+<div class="glass">
+<h2>About Me</h2>
+<p>
+I am a BTech student passionate about building futuristic digital experiences,
+learning cutting edge technologies and turning ideas into impactful products.
+</p>
+</div>
+
+</section>
+
+<section class="skills">
+
+<h2>Skills</h2>
+
+<div class="grid">
+
+<div class="card">Problem Solving</div>
+<div class="card">Leadership</div>
+<div class="card">Python</div>
+<div class="card">C++</div>
+<div class="card">HTML</div>
+<div class="card">Prompt Engineering</div>
+
+</div>
+
+</section>
+
+<section class="social">
+
+<h2>Connect</h2>
+
+<a href="#">LinkedIn</a>
+<a href="#">GitHub</a>
+<a href="#">Instagram</a>
+
+</section>
+
+<script>
+
+/* CURSOR */
+
+const cursor=document.querySelector(".cursor");
+document.addEventListener("mousemove",e=>{
+cursor.style.top=e.clientY+"px";
+cursor.style.left=e.clientX+"px";
+});
+
+/* ROLES */
+
+const roles=["BTech Student","Frontend Developer","Tech Creator","Future Founder"];
+let i=0;
+setInterval(()=>{
+document.getElementById("role").textContent=roles[i];
+i=(i+1)%roles.length;
+},2000);
+
+/* PARTICLE NETWORK */
+
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:Math.random()*1-0.5,
+vy:Math.random()*1-0.5
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.x+=p.vx;
+p.y+=p.vy;
+
+ctx.fillStyle="cyan";
+ctx.fillRect(p.x,p.y,2,2);
+
+particles.forEach(p2=>{
+let dx=p.x-p2.x;
+let dy=p.y-p2.y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<120){
+ctx.strokeStyle="rgba(0,255,255,0.1)";
+ctx.beginPath();
+ctx.moveTo(p.x,p.y);
+ctx.lineTo(p2.x,p2.y);
+ctx.stroke();
+}
+});
+});
+
+requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+
+</body>
+</html>
