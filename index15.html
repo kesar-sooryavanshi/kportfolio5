@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kesar | AI Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#000;
+color:white;
+overflow-x:hidden;
+}
+
+/* TECH BACKGROUND */
+
+.tech-bg{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+#particles{
+position:absolute;
+width:100%;
+height:100%;
+}
+
+.grid{
+position:absolute;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+background-size:40px 40px;
+animation:moveGrid 8s linear infinite;
+}
+
+@keyframes moveGrid{
+0%{transform:translateY(0);}
+100%{transform:translateY(40px);}
+}
+
+.scanline{
+position:absolute;
+width:100%;
+height:4px;
+background:linear-gradient(to right,transparent,#00f7ff,transparent);
+animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+0%{top:0;}
+100%{top:100%;}
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+position:sticky;
+top:0;
+}
+
+nav h2{
+color:#00f7ff;
+}
+
+/* HERO */
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:100px 60px;
+flex-wrap:wrap;
+}
+
+.hero-text h1{
+font-size:60px;
+}
+
+.hero-text span{
+color:#00f7ff;
+}
+
+.hero img{
+width:300px;
+border-radius:50%;
+box-shadow:0 0 40px #00f7ff;
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+/* SECTIONS */
+
+section{
+padding:80px 60px;
+text-align:center;
+}
+
+h2{
+color:#00f7ff;
+margin-bottom:40px;
+}
+
+/* BOX */
+
+.box-container{
+display:flex;
+flex-wrap:wrap;
+gap:25px;
+justify-content:center;
+}
+
+.box{
+padding:20px 35px;
+border-radius:15px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+transition:0.4s;
+}
+
+.box:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 0 25px #00f7ff;
+}
+
+/* LINKS */
+
+.links a{
+display:block;
+width:230px;
+margin:15px auto;
+padding:15px;
+border-radius:30px;
+text-decoration:none;
+color:white;
+background:linear-gradient(45deg,#00f7ff,#8e2de2);
+transition:0.4s;
+}
+
+.links a:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px #00f7ff;
+}
+
+/* SCROLL REVEAL */
+
+.hidden{
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+.hero{
+flex-direction:column;
+text-align:center;
+gap:40px;
+}
+.hero-text h1{
+font-size:40px;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="tech-bg">
+<canvas id="particles"></canvas>
+<div class="grid"></div>
+<div class="scanline"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<nav>
+<h2>KESAR</h2>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<div class="hero-text">
+<h1>Hello I'm <br><span>Kesar Sooryavanshi</span></h1>
+<p id="typing"></p>
+</div>
+
+<img src="kesar01.jpeg">
+
+</div>
+
+<!-- ABOUT -->
+
+<section class="about hidden">
+<h2>About Me</h2>
+<p>
+BTech student passionate about technology, coding and building futuristic digital experiences.
+I love creating, learning and growing every single day 🚀
+</p>
+</section>
+
+<!-- SKILLS -->
+
+<section class="hidden">
+<h2>My Skills</h2>
+
+<div class="box-container">
+<div class="box">Problem Solving</div>
+<div class="box">Leadership</div>
+<div class="box">Time Management</div>
+<div class="box">Communication</div>
+<div class="box">Teamwork</div>
+<div class="box">Analytical Thinking</div>
+</div>
+
+</section>
+
+<!-- PROGRAMMING -->
+
+<section class="hidden">
+<h2>Programming</h2>
+
+<div class="box-container">
+<div class="box">Python</div>
+<div class="box">C++</div>
+<div class="box">HTML</div>
+<div class="box">Prompt Engineering</div>
+</div>
+
+</section>
+
+<!-- LINKS -->
+
+<section class="links hidden">
+
+<h2>Connect With Me</h2>
+
+<a href="https://www.instagram.com/" target="_blank">Instagram</a>
+<a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+<a href="https://github.com/" target="_blank">GitHub</a>
+<a href="https://x.com/" target="_blank">Twitter</a>
+<a href="#">Commudle</a>
+
+</section>
+
+<script>
+
+/* TYPING TEXT */
+
+const text="BTech Student • Tech Enthusiast • Creator";
+let i=0;
+
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,50);
+}
+}
+typing();
+
+/* SCROLL REVEAL */
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
+
+/* PARTICLES */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+
+class Particle{
+constructor(){
+this.x = Math.random()*canvas.width;
+this.y = Math.random()*canvas.height;
+this.size = Math.random()*2;
+this.speedX = Math.random()*0.5-0.25;
+this.speedY = Math.random()*0.5-0.25;
+}
+
+update(){
+this.x += this.speedX;
+this.y += this.speedY;
+if(this.size>0.1) this.size -=0.01;
+}
+
+draw(){
+ctx.fillStyle="#00f7ff";
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+ctx.fill();
+}
+}
+
+function init(){
+for(let i=0;i<120;i++){
+particlesArray.push(new Particle());
+}
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particlesArray.forEach(p=>{
+p.update();
+p.draw();
+});
+requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+</script>
+
+</body>
+</html>
