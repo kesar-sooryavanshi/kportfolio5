@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kesar • Ultra Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Outfit}
+body{background:#05070f;color:white;overflow-x:hidden}
+
+/* CANVAS BACKGROUND */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+width:100%;
+padding:20px 8%;
+background:#ffffff08;
+backdrop-filter:blur(20px);
+}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:120px 8%;
+flex-wrap:wrap;
+}
+
+.hero h1{
+font-size:65px;
+}
+
+.hero span{
+background:linear-gradient(90deg,#00f5ff,#ff00cc);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero img{
+width:320px;
+border-radius:30px;
+box-shadow:0 0 40px #00f5ff55;
+}
+
+/* GLASS */
+
+.glass{
+background:#ffffff08;
+padding:60px;
+border-radius:30px;
+backdrop-filter:blur(20px);
+}
+
+/* SECTIONS */
+
+section{padding:120px 8%}
+
+h2{margin-bottom:40px;font-size:40px}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.card{
+padding:30px;
+border-radius:20px;
+background:#ffffff08;
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px #00f5ff55;
+}
+
+/* LINKS */
+
+.links a{
+display:inline-block;
+margin:12px;
+padding:15px 30px;
+border-radius:40px;
+background:linear-gradient(90deg,#00f5ff,#ff00cc);
+text-decoration:none;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<nav><h3>KESAR</h3></nav>
+
+<div class="hero">
+
+<div>
+<h1>Hello I'm<br><span>Kesar Sooryavanshi</span></h1>
+<p>BTech Student • Tech Enthusiast • Creator</p>
+</div>
+
+<img src="kesar01.jpeg">
+
+</div>
+
+<section>
+<div class="glass">
+<h2>About Me</h2>
+<p>Hi! I’m Kesar Sooryavanshi, a BTech student passionate about technology, coding and building impactful projects.</p>
+</div>
+</section>
+
+<section>
+<h2>My Skills</h2>
+<div class="grid">
+<div class="card">Problem Solving</div>
+<div class="card">Leadership</div>
+<div class="card">Time Management</div>
+<div class="card">Communication</div>
+</div>
+</section>
+
+<section>
+<h2>Programming Languages</h2>
+<div class="grid">
+<div class="card">Python</div>
+<div class="card">C++</div>
+<div class="card">HTML</div>
+<div class="card">Prompt Engineering</div>
+</div>
+</section>
+
+<section class="links">
+<h2>Connect With Me</h2>
+<a href="#">Instagram</a>
+<a href="#">LinkedIn</a>
+<a href="#">GitHub</a>
+<a href="#">Twitter</a>
+<a href="#">Commudle</a>
+</section>
+
+<script>
+
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let mouse={x:null,y:null};
+
+window.addEventListener("mousemove",e=>{
+mouse.x=e.x;
+mouse.y=e.y;
+});
+
+class Particle{
+constructor(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height;
+this.size=Math.random()*2+1;
+this.vx=Math.random()*0.6-0.3;
+this.vy=Math.random()*0.6-0.3;
+}
+
+move(){
+this.x+=this.vx;
+this.y+=this.vy;
+
+if(this.x<0||this.x>canvas.width)this.vx*=-1;
+if(this.y<0||this.y>canvas.height)this.vy*=-1;
+}
+
+draw(){
+ctx.beginPath();
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+ctx.fillStyle="#00f5ff";
+ctx.fill();
+}
+}
+
+let particles=[];
+
+for(let i=0;i<140;i++){
+particles.push(new Particle());
+}
+
+function connect(){
+for(let a=0;a<particles.length;a++){
+for(let b=a;b<particles.length;b++){
+let dx=particles[a].x-particles[b].x;
+let dy=particles[a].y-particles[b].y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<120){
+ctx.strokeStyle="rgba(0,245,255,0.08)";
+ctx.lineWidth=1;
+ctx.beginPath();
+ctx.moveTo(particles[a].x,particles[a].y);
+ctx.lineTo(particles[b].x,particles[b].y);
+ctx.stroke();
+}
+}
+}
+}
+
+function mouseConnect(){
+particles.forEach(p=>{
+let dx=p.x-mouse.x;
+let dy=p.y-mouse.y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<140){
+ctx.strokeStyle="rgba(255,0,204,0.3)";
+ctx.beginPath();
+ctx.moveTo(p.x,p.y);
+ctx.lineTo(mouse.x,mouse.y);
+ctx.stroke();
+}
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.move();
+p.draw();
+});
+
+connect();
+mouseConnect();
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
